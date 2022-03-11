@@ -393,8 +393,10 @@ SELECT `school_db_student`.`id`,
 # Find all of the instructors that only belong to a single course
 # Print out the instructors full name and number of courses to the console
 def bonus_problem(request):
-
-
+    number_of_courses = Instructor.objects.annotate(course_count=Count('course'))
+    for i in number_of_courses:
+      if i.course_count == 1:
+        print(f'Name: {i.first_name} {i.last_name} Course Count: {i.course_count}')
 
     return complete(request)
 
