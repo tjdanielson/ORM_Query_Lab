@@ -59,8 +59,6 @@ SELECT `school_db_student`.`id`,
 # Print out each student's full name and gpa to the terminal
 def problem_one(request):
 
-
-
     return complete(request)
 
 
@@ -139,8 +137,6 @@ SELECT `school_db_instructor`.`id`,
 # Print the instructors name and courses that he belongs to in the terminal 
 # (Do not hard code his name in the print)
 def problem_three(request):
-
-
 
     return complete(request)
 
