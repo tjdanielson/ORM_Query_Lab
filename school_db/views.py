@@ -4,7 +4,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import Student, Instructor, Course, StudentCourse
 from .const_data import view_information
 
-
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 
 
@@ -283,13 +282,14 @@ VALUES ('Kyle', 'Harwood', 2022, 3.0)
 # Query the previoiusly created student by the id and update the "gpa" to a new value
 # Then query the studets table to get that student by their id
 # Print the new student's id, full name, and gpa to the terminal
-def problem_six(request):
-    
+def problem_six(request):  
     # Make sure to set this equal to the primary key of the row you just created!
-    student_id = 11
-
-
-
+    Student.objects.filter(id=11).update(gpa = 1.0)
+    new_student =Student.objects.get(id=11)
+    print(f'Id: {new_student.id}')
+    print(f'Full Name: {new_student.first_name} {new_student.last_name}')
+    print(f'Year: {new_student.year}')
+    print(f'GPA: {new_student.gpa}')
     return complete(request)
 
 
@@ -336,8 +336,7 @@ def problem_seven(request):
 
     # Make sure to set this equal to the primary key of the row you just created!
     student_id = 11
-
-
+    Student.objects.filter(pk=student_id).delete()
     try:
         student = Student.objects.get(pk=student_id)
     except ObjectDoesNotExist:
@@ -393,12 +392,16 @@ SELECT `school_db_student`.`id`,
 # Find all of the instructors that only belong to a single course
 # Print out the instructors full name and number of courses to the console
 def bonus_problem(request):
+
     number_of_courses = Instructor.objects.annotate(course_count=Count('course'))
     for i in number_of_courses:
       if i.course_count == 1:
         print(f'Name: {i.first_name} {i.last_name} Course Count: {i.course_count}')
 
     return complete(request)
+
+  
+
 
 
 # Supporting Query Method Documentation:
