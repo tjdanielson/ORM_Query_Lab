@@ -59,6 +59,11 @@ SELECT `school_db_student`.`id`,
 # Print out each student's full name and gpa to the terminal
 def problem_one(request):
 
+    students_with_high_gpa = Student.objects.filter(gpa__gt=3.0).order_by('-gpa')
+
+    for student in students_with_high_gpa:
+      print(f'First Name: {student.first_name} Last Name: {student.last_name} GPA: {student.gpa}')
+
     return complete(request)
 
 
@@ -98,7 +103,10 @@ SELECT `school_db_student`.`id`,
 # Print out the instructor's full name and hire date to the terminal
 def problem_two(request):
 
-
+    instructors_before_2010 = Instructor.objects.filter(hire_date__lt='2010-01-01').order_by('hire_date')
+    
+    for instructor in instructors_before_2010:
+      print(f'First Name: {instructor.first_name} Last Name: {instructor.last_name} Hire Date: {instructor.hire_date}')
 
     return complete(request)
 
@@ -137,6 +145,11 @@ SELECT `school_db_instructor`.`id`,
 # Print the instructors name and courses that he belongs to in the terminal 
 # (Do not hard code his name in the print)
 def problem_three(request):
+    course_intructor_pk2 = Course.objects.filter(instructor_id = '2')
+    instructor_name = Instructor.objects.get(id = '2')
+
+    for instructor in course_intructor_pk2:
+      print(f'Instructor Name: {instructor_name.first_name}  Course: {instructor.name}')
 
     return complete(request)
 
@@ -183,7 +196,11 @@ SELECT `school_db_instructor`.`id`,
 
 # Get the count of students, courses, and instructors and print them in the terminal
 def problem_four(request):
-
+  all_students = Student.objects.count()
+  all_courses = Student.objects.count()
+  all_intructors = Student.objects.count()
+  print(f"Count of all students:{all_students}  Count of all courses:{all_courses}  Count of all Instructors:{all_intructors}")
+  
 
 
     return complete(request)
